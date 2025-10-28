@@ -13,6 +13,8 @@ const PROFILE_IMG = "/profile.jpg";
 
 function App() {
   const [showImage, setShowImage] = useState(true);
+  const whatsappNumber = personalInfo.phone.replace(/\D/g, "");
+  const whatsappLink = `https://wa.me/${whatsappNumber}?text=Halo%20Adam,%20saya%20tertarik%20untuk%20berdiskusi%20lebih%20lanjut.`;
   const contactItems = useMemo(
     () => [
       {
@@ -22,10 +24,10 @@ function App() {
         external: false,
       },
       {
-        label: "Telepon",
+        label: "WhatsApp",
         value: personalInfo.phone,
-        href: `tel:${personalInfo.phone.replace(/\s+/g, "")}`,
-        external: false,
+        href: whatsappLink,
+        external: true,
       },
       {
         label: "Website",
@@ -43,7 +45,7 @@ function App() {
         external: true,
       },
     ],
-    []
+    [whatsappLink]
   );
 
   return (
@@ -246,8 +248,13 @@ function App() {
               <a className="button primary" href={`mailto:${personalInfo.email}`}>
                 Kirim Email
               </a>
-              <a className="button secondary" href={`tel:${personalInfo.phone.replace(/\s+/g, "")}`}>
-                Hubungi via Telepon
+              <a
+                className="button secondary"
+                href={whatsappLink}
+                target="_blank"
+                rel="noreferrer"
+              >
+                Hubungi via WhatsApp
               </a>
             </div>
           </div>
@@ -256,7 +263,7 @@ function App() {
 
       <footer className="footer">
         <span>
-          © {new Date().getFullYear()} {personalInfo.name}. Dibangun dengan React
+          &copy; {new Date().getFullYear()} {personalInfo.name}. Dibangun dengan React
           & Vite.
         </span>
       </footer>
